@@ -7,3 +7,12 @@
 //
 
 import Foundation
+class Infor {
+    var user: UserProfile?
+    var post: Post?
+    
+//    init(user: UserProfile, post: Post) {
+//        self.user = user
+//        self.post = post
+//    }
+}

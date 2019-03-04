@@ -10,35 +10,57 @@ import UIKit
 import Firebase
 
 class YourPostVC: UIViewController, UITextViewDelegate {
+    //MARK: Properties
     var ref: DatabaseReference!
-    
+    @IBOutlet weak var imgPost: UIImageView!
     @IBOutlet weak var lbluser: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var doneButton: UIButton!
-    
- 
     @IBAction func btnPost(_ sender: Any) {
-        AddData()
+        UploadImg()
     }
-    func AddData(){
-        let key = ref.childByAutoId().key
-        let AddData = ["id":key, "username":lbluser.text, "status":textView.text]
-        ref.child(key!).setValue(AddData) { (error: Error?, ref: DatabaseReference) in
+    func AddData(imgPostLink url: String){
+        let refPost = Database.database().reference().child("Post").childByAutoId()
+        let keyPost = refPost.key
+        let timeStamp = NSNumber.init(value: Date().timeIntervalSince1970)
+        let AddData = ["id":keyPost!, "username":lbluser.text!, "status":textView.text!, "imgPost": url,"timeStamp":timeStamp] as [String : Any]
+        refPost.setValue(AddData) { (error: Error?, ref: DatabaseReference) in
             if (error == nil) {
                 self.dismiss(animated: true, completion: nil)
             } else {
                 // show popup looi~
             }
         }
+        let value = [keyPost: "post"] as! [String: String]
+    Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").updateChildValues(value)
     }
+    //MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = Database.database().reference().child("Post")
-//        doneButton.layer.cornerRadius = doneButton.bounds.height / 2
-//        doneButton.clipsToBounds = true
+        ref = Database.database().reference()
         textView.delegate = self
         getDataName()
+    }
+    
+    @IBAction func imgPostTapped(_ sender: Any) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func UploadImg(){
+        let storageRef = Storage.storage().reference().child("usersProfilePics").child((Auth.auth().currentUser?.uid)!)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        storageRef.putData((imgPost.image!.jpegData(compressionQuality: 0.1))!, metadata: metadata, completion: { (metadata, err) in
+            if err == nil {
+                storageRef.downloadURL { url, error in
+                    self.AddData(imgPostLink: (url?.absoluteString)!)
+                }
+            }
+        })
     }
     func getDataName()
     {
@@ -47,10 +69,28 @@ class YourPostVC: UIViewController, UITextViewDelegate {
             let name = (snapshot.value as! NSDictionary)["username"] as! String
             print(name)
             self.lbluser.text = name
+//            let userID = Auth.auth().currentUser?.uid
+//            ref = Database.database().reference()
+//            ref.child("Users").child(userID!).observe(.value) { snapshot in
+//                guard let dict = snapshot.value as? [String: Any] else { return }
+//                let name = dict["username"]
+//                self.lbluser.text = name as? String
+                //
         }
-        
-        //self.navigationController?.popViewController(animated: true)
     }
+}
+//        self.navigationController?.popViewController(animated: true)
  
 
+extension YourPostVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.imgPost.image = pickedImage
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

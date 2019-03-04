@@ -10,15 +10,14 @@ import Foundation
 
 class Post {
     var idM:String?
-    var userM:String?
     var postTextM:String?
-   
-    
-    init(id:String, user:String, post:String) {
+    var imgPostM:String?
+    var timeStamp:NSNumber?
+    init(id:String, imgPost:String, post:String,timeStamp:NSNumber?) {
         self.idM = id
-        self.userM = user
         self.postTextM = post
-        
-}
+        self.imgPostM = imgPost
+        self.timeStamp = timeStamp
+    }
 }
 

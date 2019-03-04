@@ -9,6 +9,8 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var showImgPost: UIImageView!
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
     
@@ -22,19 +24,16 @@ class PostTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-    func commonInit(_ imageName: String, user: String, post:String) {
-        logoImage.image = UIImage(named: imageName)
-        userLabel.text = user
-        postLabel.text = post
+//    func commonInit(_ imageName: String, user: String, post:String) {
+//        logoImage.image = UIImage(named: imageName)
+//        userLabel.text = user
+//        postLabel.text = post
+//    }
     
+    func  set(infor:Infor) {
+        postLabel.text = infor.post!.postTextM
+        userLabel.text = infor.user!.userM
     }
-    func  set(post:Post) {
-        postLabel.text = post.postTextM
-        userLabel.text = post.userM
-    }
-    
     
 }

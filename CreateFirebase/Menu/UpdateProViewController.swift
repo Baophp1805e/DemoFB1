@@ -40,8 +40,9 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
             metadata.contentType = "image/jpeg"
             storageRef.putData((imgProfile.image!.jpegData(compressionQuality: 0.1))!, metadata: metadata, completion: { (metadata, err) in
                 if err == nil {
-                    storageRef.downloadURL { url, error in Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["username": self.txtUsername.text!,"profilePicLink":url!.absoluteString])
+                    storageRef.downloadURL { url, error in Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["username": self.txtUsername.text!,"email": self.txtGmail.text as Any, "profilePicLink":url!.absoluteString]) 
                     }
+                     self.dismiss(animated: true, completion: nil)
                 }
                 //        })
             })
@@ -50,12 +51,12 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
     }
     func getDataProfile(){
         Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).observe(.value) { (snapshot) in
-            print(snapshot)
+//            print(snapshot)
             let avatar = (snapshot.value as! NSDictionary)["profilePicLink"] as! String
             let name = (snapshot.value as! NSDictionary)["username"] as! String
-            
+            let email = (snapshot.value as! NSDictionary)["email"] as! String
             self.txtUsername.text = name
-            
+            self.txtGmail.text = email
             self.imgProfile.kf.setImage(with: URL(string: avatar))
         }
     }

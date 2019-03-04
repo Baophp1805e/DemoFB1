@@ -8,4 +8,15 @@
 
 import Foundation
 
+class UserProfile{
+    var userM:String?
+    var logoUserM:String?
+    
+    init(logoUser: String,user:String) {
+        self.userM = user
+        self.logoUserM = logoUser
+        
+    }
+}
+
 
