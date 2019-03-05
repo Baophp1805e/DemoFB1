@@ -9,10 +9,14 @@
 import Foundation
 import UIKit
 import Firebase
+import NVActivityIndicatorView
 
 class SignUpVC: UIViewController, UITextFieldDelegate {
+    //MARK: Properties
     @IBOutlet weak var txtUsername: UITextField!
     
+    @IBOutlet weak var btnAccount: UIButton!
+    @IBOutlet weak var btnSignUp: UIButton!
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var tabToChangeProfileButton: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
@@ -21,10 +25,35 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     var activityView:UIActivityIndicatorView!
     var imagePicker:UIImagePickerController!
     
+    func CustomAvt(){
+//        profilePic.layer.cornerRadius = profilePic.layer.frame.size.height / 2
+//        profilePic.clipsToBounds = true
+        profilePic.layer.borderWidth = 1
+        profilePic.layer.masksToBounds = false
+        profilePic.layer.borderColor = UIColor.black.cgColor
+        profilePic.layer.cornerRadius = profilePic.frame.height/2
+        profilePic.clipsToBounds = true
+    }
+    
+    
+    func customTextField(){
+        txtEmail.customBorder(radius: 20)
+        txtPassword.customBorder(radius: 20)
+        txtUsername.customBorder(radius: 20)
+    }
+    
+    
+    func customButton(){
+        btnSignUp.makeRoundedBorder(radius: 20)
+        btnAccount.makeRoundedBorder(radius: 20)
+    }
+    //MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        customTextField()
+        customButton()
+        CustomAvt()
     }
     
     @IBAction func btnSignUp(_ sender: Any) {
@@ -68,7 +97,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     @IBAction func avatarPicTapped(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
-        imagePickerController.delegate = self
+        imagePickerController.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
         present(imagePickerController, animated: true, completion: nil)    }
     @objc func openImagePicker(_ sender:Any) {
         // Open Image Picker
@@ -82,16 +111,25 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     
     func UploadImg(){
-        let storageRef = Storage.storage().reference().child("usersProfilePics").child((Auth.auth().currentUser?.uid)!)
-        let metadata = StorageMetadata()
+        if Auth.auth().currentUser?.uid != nil {
+            let storageRef = Storage.storage().reference().child("usersProfilePics").child((Auth.auth().currentUser?.uid)!)
+            let metadata = StorageMetadata()
+
         metadata.contentType = "image/jpeg"
         storageRef.putData((profilePic.image!.jpegData(compressionQuality: 0.1))!, metadata: metadata, completion: { (metadata, err) in
             if err == nil {
                 storageRef.downloadURL { url, error in
                     self.AddUser(profilePicLink: (url?.absoluteString)!)
                 }
+            
             }
+            
         })
+        }
+        else
+        {
+            print("Error")
+        }
     }
     
 }

@@ -15,6 +15,11 @@ class HomeVC: UIViewController {
     @IBOutlet weak var lblDisplayEmail: UILabel!
     
     
+    @IBAction func btnHome(_ sender: Any) {
+        print("btn")
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NewFeedVC") as? NewFeedVC
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +30,7 @@ class HomeVC: UIViewController {
         {
             return
         }
-        lblDisplayEmail.text = email
+        lblDisplayEmail.text = "Hello : \(email)"
     }
     
 

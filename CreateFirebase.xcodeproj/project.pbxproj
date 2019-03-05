@@ -14,6 +14,7 @@
 		39242C50221BF0A700FEC811 /* MenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39242C4E221BF0A700FEC811 /* MenuVC.xib */; };
 		39242C54221BF16F00FEC811 /* MenuCellVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39242C53221BF16F00FEC811 /* MenuCellVC.swift */; };
 		39242C58221C0E6B00FEC811 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39242C57221C0E6B00FEC811 /* UserProfile.swift */; };
+		392499F8222D21C7003D625C /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392499F7222D21C7003D625C /* Custom.swift */; };
 		397165432229330C000775CB /* Infor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397165422229330C000775CB /* Infor.swift */; };
 		39953D9E2213B34800E4612F /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39953D9D2213B34800E4612F /* AlertController.swift */; };
 		39953DA1221419D000E4612F /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39953D9F221419D000E4612F /* PostTableViewCell.swift */; };
@@ -21,6 +22,9 @@
 		399EC6022215572D00B063BC /* NewFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399EC6012215572D00B063BC /* NewFeedVC.swift */; };
 		399EC6042215655600B063BC /* YourPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399EC6032215655600B063BC /* YourPostVC.swift */; };
 		39A3454A221E784B00480EF7 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A34549221E784B00480EF7 /* Post.swift */; };
+		39AC40C2222E5D9D003522BC /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C1222E5D9D003522BC /* CommentViewController.swift */; };
+		39AC40C4222E6AA3003522BC /* PostDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C3222E6AA3003522BC /* PostDelegate.swift */; };
+		39AC40C6222E7042003522BC /* InforComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C5222E7042003522BC /* InforComment.swift */; };
 		832029382227C038006F10DC /* UpdateProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832029372227C038006F10DC /* UpdateProViewController.swift */; };
 		839D9EA521F97C6D007AE769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839D9EA421F97C6D007AE769 /* AppDelegate.swift */; };
 		839D9EAA21F97C6D007AE769 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 839D9EA821F97C6D007AE769 /* Main.storyboard */; };
@@ -39,6 +43,7 @@
 		39242C4E221BF0A700FEC811 /* MenuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuVC.xib; sourceTree = "<group>"; };
 		39242C53221BF16F00FEC811 /* MenuCellVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellVC.swift; sourceTree = "<group>"; };
 		39242C57221C0E6B00FEC811 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		392499F7222D21C7003D625C /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
 		397165422229330C000775CB /* Infor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Infor.swift; sourceTree = "<group>"; };
 		39953D9D2213B34800E4612F /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		39953D9F221419D000E4612F /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
@@ -46,6 +51,9 @@
 		399EC6012215572D00B063BC /* NewFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedVC.swift; sourceTree = "<group>"; };
 		399EC6032215655600B063BC /* YourPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourPostVC.swift; sourceTree = "<group>"; };
 		39A34549221E784B00480EF7 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		39AC40C1222E5D9D003522BC /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		39AC40C3222E6AA3003522BC /* PostDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDelegate.swift; sourceTree = "<group>"; };
+		39AC40C5222E7042003522BC /* InforComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InforComment.swift; sourceTree = "<group>"; };
 		653893817F2C03DF953D0E6C /* Pods-CreateFirebase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateFirebase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreateFirebase/Pods-CreateFirebase.debug.xcconfig"; sourceTree = "<group>"; };
 		7610F2A6F50913E64A818513 /* Pods-CreateFirebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateFirebase.release.xcconfig"; path = "Pods/Target Support Files/Pods-CreateFirebase/Pods-CreateFirebase.release.xcconfig"; sourceTree = "<group>"; };
 		832029372227C038006F10DC /* UpdateProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +97,7 @@
 				39242C57221C0E6B00FEC811 /* UserProfile.swift */,
 				39A34549221E784B00480EF7 /* Post.swift */,
 				397165422229330C000775CB /* Infor.swift */,
+				39AC40C5222E7042003522BC /* InforComment.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -104,6 +113,14 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		392499F6222D21A6003D625C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				392499F7222D21C7003D625C /* Custom.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		39A3454B221E791B00480EF7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +128,8 @@
 				39953D9F221419D000E4612F /* PostTableViewCell.swift */,
 				399EC6032215655600B063BC /* YourPostVC.swift */,
 				399EC6012215572D00B063BC /* NewFeedVC.swift */,
+				39AC40C1222E5D9D003522BC /* CommentViewController.swift */,
+				39AC40C3222E6AA3003522BC /* PostDelegate.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -154,6 +173,7 @@
 		839D9EA321F97C6D007AE769 /* CreateFirebase */ = {
 			isa = PBXGroup;
 			children = (
+				392499F6222D21A6003D625C /* Extension */,
 				839D9EA421F97C6D007AE769 /* AppDelegate.swift */,
 				39A3454C221E796200480EF7 /* LoginRegister */,
 				39A3454B221E791B00480EF7 /* Home */,
@@ -315,12 +335,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39AC40C6222E7042003522BC /* InforComment.swift in Sources */,
 				83E36EA5221149AA00EF448C /* SignUpVC.swift in Sources */,
 				397165432229330C000775CB /* Infor.swift in Sources */,
+				39AC40C4222E6AA3003522BC /* PostDelegate.swift in Sources */,
 				39A3454A221E784B00480EF7 /* Post.swift in Sources */,
 				399EC6042215655600B063BC /* YourPostVC.swift in Sources */,
 				39953D9E2213B34800E4612F /* AlertController.swift in Sources */,
+				39AC40C2222E5D9D003522BC /* CommentViewController.swift in Sources */,
 				83E36EAB22114B5B00EF448C /* HomeVC.swift in Sources */,
+				392499F8222D21C7003D625C /* Custom.swift in Sources */,
 				839D9EA521F97C6D007AE769 /* AppDelegate.swift in Sources */,
 				83E36EA922114AA500EF448C /* LoginVC.swift in Sources */,
 				39242C54221BF16F00FEC811 /* MenuCellVC.swift in Sources */,

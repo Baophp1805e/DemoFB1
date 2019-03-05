@@ -9,15 +9,18 @@
 import Foundation
 
 class Post {
+    var uid: String?
+    
     var idM:String?
     var postTextM:String?
     var imgPostM:String?
     var timeStamp:NSNumber?
-    init(id:String, imgPost:String, post:String,timeStamp:NSNumber?) {
+    init(id:String, imgPost:String, uid:String, post:String,timeStamp:NSNumber?) {
         self.idM = id
         self.postTextM = post
         self.imgPostM = imgPost
         self.timeStamp = timeStamp
+        self.uid = uid
     }
 }
 

@@ -40,51 +40,46 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     func obj(){
         ref = Database.database().reference()
-        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").observe(.value, with: {(snapshot) in
-            if snapshot.childrenCount > 0{
+        ref.child("Post").queryLimited(toLast: 10).observe(.value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
                 self.postlist.removeAll()
                 for child in snapshot.children {
-                    let post = Infor()
+                     let infor = Infor()
                     let snap = child as! DataSnapshot
-                    let isPost = snap.key
-                    Database.database().reference().child("Post").child(isPost).observe(.value, with: { (snapshot) in
-                        if snapshot.childrenCount > 0{
-                            
-                                let dict = snapshot.value as! [String: Any]
-                                let id = dict["id"] as! String
-                                let status = dict["status"] as! String
-                                let imgPost = dict["imgPost"] as! String
-                                let timestamp = dict["timeStamp"] as! NSNumber
-                            post.post = Post(id: id, imgPost: imgPost, post: status, timeStamp: timestamp)
-//                                print(post.post?.imgPostM)
-                            
-                            Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).observe(.value, with: { (snapshot) in
-                                let dict = snapshot.value as! [String: Any]
-                                let profilePicLink = dict["profilePicLink"] as! String
-                                let username = dict["username"] as! String
-                                let user = UserProfile(logoUser: profilePicLink, user: username)
-                                post.user = user
-                          
-                                
-                                if self.postlist.count > 0 {
-                                    for i in 0 ..< self.postlist.count {
-                                        if self.postlist[i].post?.idM == post.post?.idM {
-                                            self.postlist.remove(at: i)
-                                            break
-                                        }
+                    let dict = snap.value as! [String:Any]
+                    let id = dict["id"] as! String
+                    let status = dict["status"] as! String
+                    let imgPost = dict["imgPost"] as! String
+                    let timestamp = dict["timeStamp"] as! NSNumber
+                    let uid = dict["uid"] as! String
+                    let post = Post(id: id, imgPost: imgPost, uid: uid, post: status, timeStamp: timestamp)
+                    infor.post = post
+                    self.ref.child("Users").child(uid).observe(.value, with: { (data) in
+                        if data.childrenCount > 0{
+                            let dict = data.value as! [String: Any]
+                            let profilePicLink = dict["profilePicLink"] as! String
+                            let username = dict["username"] as! String
+                            let user = UserProfile(logoUser: profilePicLink, user: username)
+                            infor.user = user
+                            if self.postlist.count > 0 {
+                                for i in 0 ..< self.postlist.count {
+                                    if self.postlist[i].post?.idM == infor.post?.idM {
+                                        self.postlist.remove(at: i)
+                                        break
                                     }
                                 }
-                                self.postlist.append(post)
-                                self.tableView.reloadData()
-                            })
-                        }
-                    })
-                }
-                self.tableView.reloadData()
-            }
-            
+                            }
 
-        })
+                            self.postlist.append(infor)
+                            self.tableView.reloadData()
+                        }
+                        
+                    })
+                    self.tableView.reloadData()
+                    
+                }
+            }
+        }
     }
     //MARK: - Handle
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,10 +92,13 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.set(infor: postlist[indexPath.row])
         cell.showImgPost.kf.setImage(with: URL(string: (data.post?.imgPostM)!))
         cell.logoImage.kf.setImage(with: URL(string: (data.user?.logoUserM)!))
+        cell.logoImage.layer.masksToBounds = true
+        cell.logoImage.layer.cornerRadius = cell.logoImage.frame.width/2
         let exactDate = NSDate(timeIntervalSince1970: TimeInterval(truncating: (data.post?.timeStamp)!))
         let dateFormatt = DateFormatter()
         dateFormatt.dateFormat = "hh:mm a"
         cell.timeLabel.text = dateFormatt.string(from: exactDate as Date)
+        cell.delegate = self
         return cell
     }
 
@@ -165,8 +163,11 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         alertController.addAction(deleteAction)
         present(alertController, animated: true, completion: nil)
     }
-}
-
+    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+////        let item = postlist[indexPath.row]
+////        let delet
+//    }
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
 //            observePosts()
@@ -183,3 +184,16 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        }
 //
 //    }
+}
+
+
+extension NewFeedVC: PostDelegate{
+    func didClickComment() {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let commentVc = storyBoard.instantiateViewController(withIdentifier: "commentVC")
+        self.navigationController?.pushViewController(commentVc, animated: true)
+    }
+    
+    
+}
+

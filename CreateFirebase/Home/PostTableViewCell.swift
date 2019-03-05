@@ -17,11 +17,23 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var postLabel: UILabel!
     
+    
+    weak var delegate: PostDelegate?
+    //MARK: Life cycle
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
+    @IBAction func btnComment(_ sender: Any) {
+        
+        delegate?.didClickComment()
+        
+    }
+    @IBAction func btnSetting(_ sender: Any) {
+        
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

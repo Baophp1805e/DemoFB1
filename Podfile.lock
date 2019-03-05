@@ -79,6 +79,9 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - NVActivityIndicatorView (4.6.1):
+    - NVActivityIndicatorView/Presenter (= 4.6.1)
+  - NVActivityIndicatorView/Presenter (4.6.1)
 
 DEPENDENCIES:
   - Firebase
@@ -88,6 +91,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - JSQMessagesViewController
   - Kingfisher
+  - NVActivityIndicatorView
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -107,6 +111,7 @@ SPEC REPOS:
     - Kingfisher
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
@@ -125,7 +130,8 @@ SPEC CHECKSUMS:
   Kingfisher: fcec238063d17404fca89bf0a850583211c4cbf6
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
 
-PODFILE CHECKSUM: b3e449933a1f458372c3c261546c2978921bb4c5
+PODFILE CHECKSUM: 64a6b579991225150069b64e189a62b0f170d392
 
 COCOAPODS: 1.6.0

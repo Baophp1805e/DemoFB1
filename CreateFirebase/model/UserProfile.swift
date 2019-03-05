@@ -9,6 +9,7 @@
 import Foundation
 
 class UserProfile{
+    
     var userM:String?
     var logoUserM:String?
     

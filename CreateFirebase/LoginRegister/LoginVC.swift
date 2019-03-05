@@ -13,8 +13,31 @@ class LoginVC: UIViewController {
     
     @IBOutlet weak var txtEmail: UITextField!
     
+    @IBOutlet weak var btnRegister: UIButton!
+    @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtPassword: UITextField!
     
+    func customButton(){
+        
+        btnLogin.makeRoundedBorder(radius: 20)
+        btnRegister.makeRoundedBorder(radius: 20)
+    }
+    
+    func customTextField(){
+        txtEmail.layer.masksToBounds = true
+        txtEmail.layer.cornerRadius = 20
+        txtPassword.layer.masksToBounds = true
+        txtPassword.layer.cornerRadius = 20
+//        txtEmail.customBorder(radius: 20)
+//        txtPassword.customBorder(radius: 20)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        customTextField()
+        customButton()
+    }
     @IBAction func btnLogin(_ sender: Any) {
         guard let email = txtEmail.text, email != "",
             let password = txtPassword.text, password != ""

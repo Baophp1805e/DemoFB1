@@ -20,10 +20,21 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lblUsername: UILabel!
     let imagePickerController = UIImagePickerController()
     
+    
+    func CustomImg(){
+        imgProfile.layer.cornerRadius = imgProfile.layer.frame.size.height / 2
+        imgProfile.clipsToBounds = true
+//        imgProfile.layer.borderWidth = 1
+//        imgProfile.layer.masksToBounds = false
+//        imgProfile.layer.borderColor = UIColor.black.cgColor
+//        imgProfile.layer.cornerRadius = imgProfile.frame.height/2
+//        imgProfile.clipsToBounds = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataProfile()
         // Do any additional setup after loading the view.
+        CustomImg()
     }
     @IBAction func imgTapped(_ sender: Any) {
         imagePickerController.sourceType = .photoLibrary
@@ -31,6 +42,9 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
         present(imagePickerController, animated: true, completion: nil)
     }
    
+    @IBAction func btnCan(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func btnSave(_ sender: Any) {
         
