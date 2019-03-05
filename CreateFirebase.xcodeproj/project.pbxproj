@@ -25,6 +25,7 @@
 		39AC40C2222E5D9D003522BC /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C1222E5D9D003522BC /* CommentViewController.swift */; };
 		39AC40C4222E6AA3003522BC /* PostDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C3222E6AA3003522BC /* PostDelegate.swift */; };
 		39AC40C6222E7042003522BC /* InforComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C5222E7042003522BC /* InforComment.swift */; };
+		39BF7410222E79AE008F573A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BF740F222E79AE008F573A /* TableViewCell.swift */; };
 		832029382227C038006F10DC /* UpdateProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832029372227C038006F10DC /* UpdateProViewController.swift */; };
 		839D9EA521F97C6D007AE769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839D9EA421F97C6D007AE769 /* AppDelegate.swift */; };
 		839D9EAA21F97C6D007AE769 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 839D9EA821F97C6D007AE769 /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		39AC40C1222E5D9D003522BC /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		39AC40C3222E6AA3003522BC /* PostDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDelegate.swift; sourceTree = "<group>"; };
 		39AC40C5222E7042003522BC /* InforComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InforComment.swift; sourceTree = "<group>"; };
+		39BF740F222E79AE008F573A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		653893817F2C03DF953D0E6C /* Pods-CreateFirebase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateFirebase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreateFirebase/Pods-CreateFirebase.debug.xcconfig"; sourceTree = "<group>"; };
 		7610F2A6F50913E64A818513 /* Pods-CreateFirebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateFirebase.release.xcconfig"; path = "Pods/Target Support Files/Pods-CreateFirebase/Pods-CreateFirebase.release.xcconfig"; sourceTree = "<group>"; };
 		832029372227C038006F10DC /* UpdateProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				399EC6032215655600B063BC /* YourPostVC.swift */,
 				399EC6012215572D00B063BC /* NewFeedVC.swift */,
 				39AC40C1222E5D9D003522BC /* CommentViewController.swift */,
+				39BF740F222E79AE008F573A /* TableViewCell.swift */,
 				39AC40C3222E6AA3003522BC /* PostDelegate.swift */,
 			);
 			path = Home;
@@ -340,6 +343,7 @@
 				397165432229330C000775CB /* Infor.swift in Sources */,
 				39AC40C4222E6AA3003522BC /* PostDelegate.swift in Sources */,
 				39A3454A221E784B00480EF7 /* Post.swift in Sources */,
+				39BF7410222E79AE008F573A /* TableViewCell.swift in Sources */,
 				399EC6042215655600B063BC /* YourPostVC.swift in Sources */,
 				39953D9E2213B34800E4612F /* AlertController.swift in Sources */,
 				39AC40C2222E5D9D003522BC /* CommentViewController.swift in Sources */,

@@ -11,8 +11,6 @@ import UIKit
 class CommentViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableViewCell!
-    @IBOutlet weak var avtUser: UIImageView!
-    @IBOutlet weak var lblCmt: UILabel!
     
     
     override func viewDidLoad() {

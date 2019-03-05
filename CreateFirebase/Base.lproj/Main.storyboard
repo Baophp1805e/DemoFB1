@@ -142,7 +142,7 @@
         <scene sceneID="rVX-9D-ppg">
             <objects>
                 <viewController id="65H-V5-1if" customClass="UpdateProViewController" customModule="CreateFirebase" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="B50-ry-NZf">
+                    <view key="view" contentMode="scaleToFill" id="B50-ry-NZf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -648,7 +648,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="114" id="MiB-p6-xiM">
                                         <rect key="frame" x="0.0" y="28" width="375" height="114"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MiB-p6-xiM" id="Dag-h4-gkL">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MiB-p6-xiM" id="Dag-h4-gkL" customClass="TableViewCell" customModule="CreateFirebase" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="113.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -704,11 +704,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UTQ-MM-Sj0"/>
                     </view>
-                    <connections>
-                        <outlet property="avtUser" destination="tfQ-y6-YRz" id="pJB-Ef-iAr"/>
-                        <outlet property="lblCmt" destination="L48-OW-XzN" id="SWv-0b-Vtl"/>
-                        <outlet property="tableView" destination="MiB-p6-xiM" id="OH1-fE-dB5"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlA-7c-Di4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
