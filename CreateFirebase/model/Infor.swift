@@ -10,6 +10,7 @@ import Foundation
 class Infor {
     var user: UserProfile?
     var post: Post?
+    var cmtInfor: CommentModel?
     
 //    init(user: UserProfile, post: Post) {
 //        self.user = user

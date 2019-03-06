@@ -10,6 +10,9 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblTimer: UILabel!
+    @IBOutlet weak var lblCmt: UILabel!
+    @IBOutlet weak var avtUser: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +23,9 @@ class TableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+//    func  set(infor:Infor) {
+//        lblCmt.text = infor.cmtInfor!.cmtM
+//        
+//    }
 }

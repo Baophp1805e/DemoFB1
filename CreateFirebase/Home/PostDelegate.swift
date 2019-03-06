@@ -9,5 +9,9 @@
 import Foundation
 
 protocol PostDelegate: class{
-    func didClickComment() 
+    func didClickComment(indexPath: IndexPath)
+}
+
+protocol SettingDelegate: class {
+    func didClickSetting() 
 }

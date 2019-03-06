@@ -14,11 +14,14 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
     
+    @IBOutlet weak var imgHeart: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var postLabel: UILabel!
     
+    var indexPath: IndexPath!
     
     weak var delegate: PostDelegate?
+    weak var delegateST: SettingDelegate?
     //MARK: Life cycle
   
     override func awakeFromNib() {
@@ -26,12 +29,14 @@ class PostTableViewCell: UITableViewCell {
         // Initialization code
     }
 
+    @IBAction func btnST(_ sender: Any) {
+        delegateST?.didClickSetting()
+        print("Setting tapped")
+    }
+    
     @IBAction func btnComment(_ sender: Any) {
         
-        delegate?.didClickComment()
-        
-    }
-    @IBAction func btnSetting(_ sender: Any) {
+        delegate?.didClickComment(indexPath: self.indexPath)
         
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,6 +51,10 @@ class PostTableViewCell: UITableViewCell {
     func  set(infor:Infor) {
         postLabel.text = infor.post!.postTextM
         userLabel.text = infor.user!.userM
+        
     }
     
+    func changColor() {
+        
+    }
 }

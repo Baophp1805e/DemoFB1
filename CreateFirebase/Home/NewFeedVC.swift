@@ -56,6 +56,7 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     infor.post = post
                     self.ref.child("Users").child(uid).observe(.value, with: { (data) in
                         if data.childrenCount > 0{
+                            
                             let dict = data.value as! [String: Any]
                             let profilePicLink = dict["profilePicLink"] as! String
                             let username = dict["username"] as! String
@@ -94,14 +95,19 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.logoImage.kf.setImage(with: URL(string: (data.user?.logoUserM)!))
         cell.logoImage.layer.masksToBounds = true
         cell.logoImage.layer.cornerRadius = cell.logoImage.frame.width/2
+//        cell.imgHeart.image = imgHeart.image?.withRenderingMode(.alwaysTemplate)
+//        cell.imgHeart.tintColor = UIColor.red
         let exactDate = NSDate(timeIntervalSince1970: TimeInterval(truncating: (data.post?.timeStamp)!))
         let dateFormatt = DateFormatter()
         dateFormatt.dateFormat = "hh:mm a"
         cell.timeLabel.text = dateFormatt.string(from: exactDate as Date)
         cell.delegate = self
+        cell.delegateST = self
+        cell.indexPath = indexPath
         return cell
     }
-
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 400
     }
@@ -110,90 +116,81 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
-    func updateDemo(id: String, userUpdate: String, postUpdate: String)
-    {
-        let timeStamp = NSNumber.init(value: Date().timeIntervalSince1970)
-        let data = ["id" : id, "username" : userUpdate, "status" : postUpdate,"timeStamp":timeStamp] as [String : Any]
-        ref.child("Post").child(id).setValue(data)
-
-    }
+//    func updateDemo(id: String, userUpdate: String, postUpdate: String)
+//    {
+//        let timeStamp = NSNumber.init(value: Date().timeIntervalSince1970)
+//        let data = ["id" : id, "username" : userUpdate, "status" : postUpdate,"timeStamp":timeStamp] as [String : Any]
+//        ref.child("Post").child(id).setValue(data)
 //
-    func deleteDemo(id: String)
-    {
-        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child(id).removeValue()
-            ref.child("Post").child(id).removeValue()
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let demo = postlist[indexPath.row]
-        let alertController = UIAlertController(title:demo.user!.userM, message: "Give new values to demo", preferredStyle:.alert)
-
-        let updateAction = UIAlertAction(title: "Update", style: .default) { (_) in
-            let id = demo.post!.idM
-            let userUpdate = alertController.textFields?[0].text
-            let postUpdate = alertController.textFields?[1].text
-
-            self.updateDemo(id: id!, userUpdate: userUpdate!, postUpdate: postUpdate!)
-        }
-        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
-            
-            self.deleteDemo(id: demo.post!.idM!)
-            self.postlist.remove(at: indexPath.row)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
-            print("Cancel button tapped");
-        }
-        alertController.addTextField { (textField) in
-            textField.text = demo.user!.userM
-        }
-        alertController.addTextField { (textField) in
-            textField.text = demo.post!.postTextM
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(updateAction)
-        alertController.addAction(deleteAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-////        let item = postlist[indexPath.row]
-////        let delet
 //    }
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            observePosts()
-//            let demo = postlist[indexPath.row]
-//            let when = DispatchTime.now() + 1
-//            DispatchQueue.main.asyncAfter(deadline: when, execute: {
+////
+//    func deleteDemo(id: String)
+//    {
+//        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child(id).removeValue()
+//            ref.child("Post").child(id).removeValue()
 //
-//                self.ref?.child("Post").removeValue()
-//                self.postlist.remove(at: indexPath.row)
-//                tableView.deleteRows(at: [indexPath], with: .automatic)
-//                self.keyArray = []
-//            })
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//    }
 //
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        let demo = postlist[indexPath.row]
+//        let alertController = UIAlertController(title:demo.user!.userM, message: "Give new values to demo", preferredStyle:.alert)
+//
+//        let updateAction = UIAlertAction(title: "Update", style: .default) { (_) in
+//            let id = demo.post!.idM
+//            let userUpdate = alertController.textFields?[0].text
+//            let postUpdate = alertController.textFields?[1].text
+//
+//            self.updateDemo(id: id!, userUpdate: userUpdate!, postUpdate: postUpdate!)
+//        }
+//        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
+//
+//            self.deleteDemo(id: demo.post!.idM!)
+//            self.postlist.remove(at: indexPath.row)
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+//            print("Cancel button tapped");
+//        }
+//        alertController.addTextField { (textField) in
+//            textField.text = demo.user!.userM
+//        }
+//        alertController.addTextField { (textField) in
+//            textField.text = demo.post!.postTextM
 //        }
 //
+//        alertController.addAction(cancelAction)
+//        alertController.addAction(updateAction)
+//        alertController.addAction(deleteAction)
+//        present(alertController, animated: true, completion: nil)
 //    }
 }
 
 
 extension NewFeedVC: PostDelegate{
-    func didClickComment() {
+    func didClickComment(indexPath: IndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let commentVc = storyBoard.instantiateViewController(withIdentifier: "commentVC")
-        self.navigationController?.pushViewController(commentVc, animated: true)
+        let commentVc = storyBoard.instantiateViewController(withIdentifier: "commentVC") as? CommentViewController
+//        print(postlist[indexPath.row].post?.idM)
+        commentVc?.post = postlist[indexPath.row].post
+        
+        self.navigationController?.pushViewController(commentVc!, animated: true)
     }
     
     
 }
 
+extension NewFeedVC: SettingDelegate{
+    func didClickSetting() {
+//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//        let settingVC = storyBoard.instantiateViewController(withIdentifier: "settingVC")
+//        self.navigationController?.pushViewController(settingVC, animated: true)
+        
+        
+    }
+}

@@ -18,6 +18,10 @@ class UserProfile{
         self.logoUserM = logoUser
         
     }
+    init(logoUser: String) {
+        self.logoUserM = logoUser
+        
+    }
 }
 
 

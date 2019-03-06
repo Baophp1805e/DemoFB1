@@ -10,12 +10,12 @@ import Foundation
 
 class CommentModel {
     var uid:String?
-    var cmt:String?
+    var cmtM:String?
     var timeStamp:NSNumber?
     
     init(uid:String, cmt:String, timeStamp:NSNumber) {
         self.uid = uid
-        self.cmt = cmt
+        self.cmtM = cmt
         self.timeStamp = timeStamp
     }
 }
