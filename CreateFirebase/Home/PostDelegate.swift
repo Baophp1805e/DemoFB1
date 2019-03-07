@@ -13,9 +13,13 @@ protocol PostDelegate: class{
 }
 
 protocol SettingDelegate: class {
-    func didClickSetting() 
+    func didClickSetting(indexPath: IndexPath)
 }
 
 protocol LikeDelegate: class {
     func clickLike(indexPath: IndexPath)
+}
+
+protocol DeleteDelegate {
+    func didClickDelete(indexPath: IndexPath)
 }

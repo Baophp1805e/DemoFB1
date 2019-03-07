@@ -51,7 +51,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9P-uu-Y5A">
-                        <rect key="frame" x="307" y="310" width="30" height="30"/>
+                        <rect key="frame" x="342" y="310" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="1vc-Og-Cu0"/>
                             <constraint firstAttribute="height" constant="30" id="8Lo-tr-m2P"/>
@@ -62,7 +62,8 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyx-lp-EZ7">
-                        <rect key="frame" x="118" y="310" width="30" height="30"/>
+                        <rect key="frame" x="118" y="307" width="39" height="36"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <state key="normal" title="Like"/>
                         <connections>
                             <action selector="btnLike:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ivt-UB-c6v"/>
@@ -82,7 +83,8 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJF-EO-SxH">
-                        <rect key="frame" x="208" y="310" width="67" height="30"/>
+                        <rect key="frame" x="217" y="307" width="93" height="36"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <state key="normal" title="Comment"/>
                         <connections>
                             <action selector="btnComment:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="65a-gh-Q0o"/>

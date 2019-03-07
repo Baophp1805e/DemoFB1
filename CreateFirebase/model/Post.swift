@@ -10,12 +10,12 @@ import Foundation
 
 class Post {
     var uid: String?
-    
     var idM:String?
     var postTextM:String?
     var imgPostM:String?
     var timeStamp:NSNumber?
     var countLikes:String?
+    
     init(id:String, imgPost:String, uid:String, post:String, timeStamp:NSNumber?) {
         self.idM = id
         self.postTextM = post

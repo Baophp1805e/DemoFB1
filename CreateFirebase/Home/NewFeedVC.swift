@@ -203,7 +203,7 @@ extension NewFeedVC: PostDelegate{
 }
 
 extension NewFeedVC: SettingDelegate{
-    func didClickSetting() {
+    func didClickSetting(indexPath: IndexPath) {
 //        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
 //        let settingVC = storyBoard.instantiateViewController(withIdentifier: "settingVC")
 //        self.navigationController?.pushViewController(settingVC, animated: true)
@@ -221,5 +221,20 @@ extension NewFeedVC: LikeDelegate{
      func clickLike(indexPath: IndexPath) {
 
         }
+    
+}
+
+extension NewFeedVC: DeleteDelegate{
+    func didClickDelete(indexPath: IndexPath) {
+            let demo = postlist[indexPath.row]
+        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child((demo.post?.uid)!).removeValue()
+            ref.child("Post").child((demo.post?.idM)!).removeValue()
+            ref.child("Comment").child((demo.post?.idM)!).removeValue()
+        
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+    }
+    
     
 }

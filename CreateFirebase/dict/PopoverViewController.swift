@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
 class PopoverViewController: UIViewController {
+     // MARK: - Property
+    var indexPath: IndexPath!
+    var ref: DatabaseReference!
+    var delegateDelete: DeleteDelegate?
+    
+    //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,15 +26,22 @@ class PopoverViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: Handle Setting
+    @IBAction func btnEdit(_ sender: Any) {
+        
     }
     
-    @IBAction func closePopUp(_ sender: AnyObject) {
-        self.removeAnimate()
-        //self.view.removeFromSuperview()
+    
+    @IBAction func btnDelete(_ sender: Any) {
+        delegateDelete?.didClickDelete(indexPath: self.indexPath)
+        self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func btnCancle(_ sender: Any) {
+         self.removeAnimate()
+    }
+   
+
     
     func showAnimate()
     {

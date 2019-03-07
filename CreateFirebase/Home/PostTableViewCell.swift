@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class PostTableViewCell: UITableViewCell {
-    
+     // MARK: - Property
     @IBOutlet weak var lblCountLikes: UILabel!
     @IBOutlet weak var showImgPost: UIImageView!
     @IBOutlet weak var logoImage: UIImageView!
@@ -64,7 +64,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func btnST(_ sender: Any) {
-        delegateST?.didClickSetting()
+        delegateST?.didClickSetting(indexPath: self.indexPath)
         print("Setting tapped")
     }
     

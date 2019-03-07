@@ -25,8 +25,4 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-//    func  set(infor:Infor) {
-//        lblCmt.text = infor.cmtInfor!.cmtM
-//        
-//    }
 }

@@ -22,8 +22,6 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    
-    
     @IBOutlet weak var textComment: UITextField!
     
     //MARK: Life cycle
@@ -42,8 +40,6 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.CMT.removeAll()
                 for child in dataSnapshot.children{
                     let infor = Infor()
-//                    let snap = child as! DataSnapshot
-//                    let dict = snap.value as! [String:Any]
                     let snap = child as! DataSnapshot
                     let dict = snap.value as! [String:Any]
                     let uid = dict["id"] as! String
@@ -57,11 +53,6 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                         let dict = data.value as! [String: Any]
                         let profilePicLink = dict["profilePicLink"] as! String
                         let username = dict["username"] as! String
-//                            for child in data.children{
-//                            let Snap1 = child as! DataSnapshot
-//                            let dict = Snap1.value as! [String: Any]
-//                            let profilePicLink = dict["profilePicLink"] as! String
-////                            let username = dict["username"] as! String
                             let user = UserProfile(logoUser: profilePicLink, user: username )
                             infor.user = user
                             self.CMT.append(infor)
