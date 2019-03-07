@@ -64,6 +64,9 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyx-lp-EZ7">
                         <rect key="frame" x="118" y="310" width="30" height="30"/>
                         <state key="normal" title="Like"/>
+                        <connections>
+                            <action selector="btnLike:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ivt-UB-c6v"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykc-NZ-kfd">
                         <rect key="frame" x="88" y="310" width="30" height="30"/>
@@ -97,7 +100,6 @@
                     <constraint firstItem="ykc-NZ-kfd" firstAttribute="height" secondItem="uz9-3F-Z8j" secondAttribute="height" id="NZo-PZ-tjg"/>
                     <constraint firstAttribute="bottomMargin" secondItem="uz9-3F-Z8j" secondAttribute="bottom" constant="20" id="NzJ-wn-i8l"/>
                     <constraint firstItem="BE6-hY-I9c" firstAttribute="leading" secondItem="uoQ-7a-1ZF" secondAttribute="trailing" constant="22" id="TUP-6P-cSH"/>
-                    <constraint firstItem="3HI-sL-TZR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="ZBf-9L-ay2"/>
                     <constraint firstAttribute="bottomMargin" secondItem="ykc-NZ-kfd" secondAttribute="bottom" constant="20" id="arO-tJ-4DL"/>
                     <constraint firstItem="48y-kZ-emC" firstAttribute="top" secondItem="APU-fN-qmq" secondAttribute="bottom" constant="15" id="awv-Iz-I5l"/>
                     <constraint firstItem="48y-kZ-emC" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bhq-qt-lT6"/>
@@ -121,6 +123,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="imgHeart" destination="uz9-3F-Z8j" id="Mfi-Dm-HLh"/>
+                <outlet property="lblCountLikes" destination="ykc-NZ-kfd" id="ucB-Ks-Cf7"/>
                 <outlet property="logoImage" destination="uoQ-7a-1ZF" id="BqR-fk-1iL"/>
                 <outlet property="postLabel" destination="APU-fN-qmq" id="EGE-ZK-6UY"/>
                 <outlet property="showImgPost" destination="48y-kZ-emC" id="09d-Nx-aeL"/>

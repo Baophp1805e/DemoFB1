@@ -27,7 +27,7 @@ class YourPostVC: UIViewController, UITextViewDelegate {
         let refPost = Database.database().reference().child("Post").childByAutoId()
         let keyPost = refPost.key
         let timeStamp = NSNumber.init(value: Date().timeIntervalSince1970)
-        let AddData = ["id":keyPost!, "uid":Auth.auth().currentUser?.uid as Any, "status":textView.text!, "imgPost": url,"timeStamp":timeStamp] as [String : Any]
+        let AddData = ["id":keyPost!, "uid":Auth.auth().currentUser?.uid as Any, "status":textView.text!, "imgPost": url,"timeStamp":timeStamp,"countLikes":"0"] as [String : Any]
         refPost.setValue(AddData) { (error: Error?, ref: DatabaseReference) in
             if (error == nil) {
                 self.dismiss(animated: true, completion: nil)
@@ -72,7 +72,7 @@ class YourPostVC: UIViewController, UITextViewDelegate {
             print(snapshot)
             let name = (snapshot.value as! NSDictionary)["username"] as! String
             print(name)
-            self.lbluser.text = name
+//            self.lbluser.text = name
 //            let userID = Auth.auth().currentUser?.uid
 //            ref = Database.database().reference()
 //            ref.child("Users").child(userID!).observe(.value) { snapshot in

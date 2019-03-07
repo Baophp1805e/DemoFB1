@@ -82,6 +82,7 @@ PODS:
   - NVActivityIndicatorView (4.6.1):
     - NVActivityIndicatorView/Presenter (= 4.6.1)
   - NVActivityIndicatorView/Presenter (4.6.1)
+  - Popover (1.2.2)
 
 DEPENDENCIES:
   - Firebase
@@ -92,6 +93,7 @@ DEPENDENCIES:
   - JSQMessagesViewController
   - Kingfisher
   - NVActivityIndicatorView
+  - Popover
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -112,6 +114,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - NVActivityIndicatorView
+    - Popover
 
 SPEC CHECKSUMS:
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
@@ -131,7 +134,8 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
+  Popover: 21e357f86d45c8d9e29a41a4adbca3664d6e511f
 
-PODFILE CHECKSUM: 64a6b579991225150069b64e189a62b0f170d392
+PODFILE CHECKSUM: 84d203a925f7815a4769e201e8eb45173f068301
 
 COCOAPODS: 1.6.0

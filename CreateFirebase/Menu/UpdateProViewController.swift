@@ -12,8 +12,10 @@ import Firebase
 import Kingfisher
 
 class UpdateProViewController: UIViewController, UITextFieldDelegate {
-    @IBOutlet weak var imgProfile: UIImageView!
     
+    @IBOutlet weak var btnCancle: UIButton!
+    @IBOutlet weak var btnSave: UIButton!
+    @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var txtGmail: UITextField!
     @IBOutlet weak var lblGmail: UILabel!
     @IBOutlet weak var txtUsername: UITextField!
@@ -21,20 +23,32 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
     let imagePickerController = UIImagePickerController()
     
     
-    func CustomImg(){
-        imgProfile.layer.cornerRadius = imgProfile.layer.frame.size.height / 2
-        imgProfile.clipsToBounds = true
-//        imgProfile.layer.borderWidth = 1
-//        imgProfile.layer.masksToBounds = false
-//        imgProfile.layer.borderColor = UIColor.black.cgColor
-//        imgProfile.layer.cornerRadius = imgProfile.frame.height/2
-//        imgProfile.clipsToBounds = true
+    func Custom() {
+        CustomImg()
+        CustomTextField()
+        CustomButton()
     }
+    
+    func CustomButton()  {
+        btnSave.makeRoundedBorder(radius: 20)
+        btnCancle.makeRoundedBorder(radius: 20)
+    }
+    func CustomImg(){
+        imgProfile.layer.cornerRadius = imgProfile.frame.size.height/2
+        imgProfile.clipsToBounds = true
+    }
+    
+    func CustomTextField() {
+        txtGmail.layer.masksToBounds = true
+        txtGmail.layer.cornerRadius = 20
+        txtUsername.layer.masksToBounds = true
+        txtUsername.layer.cornerRadius = 20
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataProfile()
-        // Do any additional setup after loading the view.
-        CustomImg()
+        Custom()
     }
     @IBAction func imgTapped(_ sender: Any) {
         imagePickerController.sourceType = .photoLibrary
@@ -65,6 +79,7 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
     }
     func getDataProfile(){
         Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).observe(.value) { (snapshot) in
+            if snapshot.exists(){
 //            print(snapshot)
             let avatar = (snapshot.value as! NSDictionary)["profilePicLink"] as! String
             let name = (snapshot.value as! NSDictionary)["username"] as! String
@@ -72,6 +87,8 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
             self.txtUsername.text = name
             self.txtGmail.text = email
             self.imgProfile.kf.setImage(with: URL(string: avatar))
+            }
+            
         }
     }
 }

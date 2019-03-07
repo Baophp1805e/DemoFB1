@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class PostTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var lblCountLikes: UILabel!
     @IBOutlet weak var showImgPost: UIImageView!
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
@@ -19,16 +21,48 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var postLabel: UILabel!
     
     var indexPath: IndexPath!
-    
+    var postID: String!
     weak var delegate: PostDelegate?
     weak var delegateST: SettingDelegate?
+    weak var delegateLike: LikeDelegate?
     //MARK: Life cycle
   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    
+    @IBAction func btnLike(_ sender: Any) {
+        delegateLike?.clickLike(indexPath: self.indexPath)
+        Database.database().reference().child("Post").child(postID).child("UserLike").observe(.value) { (snapshot) in
+            print(snapshot.childrenCount)
+            let like = Database.database().reference().child("Post").child(self.postID)
+            like.updateChildValues(["countLikes":"\(snapshot.childrenCount)"])
+        }
+        guard let loopButton = sender as? UIButton else {
+            return
+        }
 
+        let selected = !loopButton.isSelected
+
+        if selected {
+            print("selected")
+           
+            let like = Database.database().reference().child("Post").child(postID)
+            like.child("UserLike").updateChildValues([(Auth.auth().currentUser?.uid)! : "true"])
+             imgHeart.image = UIImage(named: "btn_heart_red_solid")
+            
+        } else {
+            print("deselected")
+            let like = Database.database().reference().child("Post").child(postID)
+            like.child("UserLike").child((Auth.auth().currentUser?.uid)!).removeValue()
+            imgHeart.image = UIImage(named: "btn_heart_black_outline")
+        }
+
+        loopButton.isSelected = selected
+    }
+    
     @IBAction func btnST(_ sender: Any) {
         delegateST?.didClickSetting()
         print("Setting tapped")
@@ -42,11 +76,7 @@ class PostTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-//    func commonInit(_ imageName: String, user: String, post:String) {
-//        logoImage.image = UIImage(named: imageName)
-//        userLabel.text = user
-//        postLabel.text = post
-//    }
+
     
     func  set(infor:Infor) {
         postLabel.text = infor.post!.postTextM
@@ -54,7 +84,4 @@ class PostTableViewCell: UITableViewCell {
         
     }
     
-    func changColor() {
-        
-    }
 }

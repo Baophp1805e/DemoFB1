@@ -12,7 +12,7 @@ import Firebase
 
 class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+//    var isChecked = true
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -33,18 +33,14 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        observePosts()
         obj()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
+ 
     func obj(){
         ref = Database.database().reference()
         ref.child("Post").queryLimited(toLast: 10).observe(.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 self.postlist.removeAll()
                 for child in snapshot.children {
-                     let infor = Infor()
+                    let infor = Infor()
                     let snap = child as! DataSnapshot
                     let dict = snap.value as! [String:Any]
                     let id = dict["id"] as! String
@@ -52,7 +48,9 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     let imgPost = dict["imgPost"] as! String
                     let timestamp = dict["timeStamp"] as! NSNumber
                     let uid = dict["uid"] as! String
-                    let post = Post(id: id, imgPost: imgPost, uid: uid, post: status, timeStamp: timestamp)
+                    let countLikes = dict["countLikes"] as! String
+                    print(countLikes)
+                    let post = Post(id: id, imgPost: imgPost, uid: uid, post: status, timeStamp: timestamp,countLikes:countLikes)
                     infor.post = post
                     self.ref.child("Users").child(uid).observe(.value, with: { (data) in
                         if data.childrenCount > 0{
@@ -72,7 +70,15 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             }
 
                             self.postlist.append(infor)
-                            self.tableView.reloadData()
+                            DispatchQueue.main.async {
+                                if self.postlist.count >= 2 {
+                                    self.postlist.sort(by: {(b,a) -> Bool in
+                                        return self.getDataFromString(dateSring: (a.post?.timeStamp)!) > self.getDataFromString(dateSring: (b.post?.timeStamp)!)
+                                    })
+                                }
+                                
+                                self.tableView.reloadData()
+                            }
                         }
                         
                     })
@@ -81,6 +87,16 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+    }
+    func getDataFromString(dateSring:NSNumber){
+        let exactDate = NSDate(timeIntervalSince1970: TimeInterval(truncating: (dateSring)))
+        let dateFormatt = DateFormatter()
+        dateFormatt.dateFormat = "hh:mm a"
+        //                dateFormatt.dateFormat = "dd/MM/yyy hh:mm:ss a"
+        dateFormatt.string(from: exactDate as Date)
+    }
+    func CountLike(){
+//        Database.database().reference().child("Post")
     }
     //MARK: - Handle
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,15 +111,16 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.logoImage.kf.setImage(with: URL(string: (data.user?.logoUserM)!))
         cell.logoImage.layer.masksToBounds = true
         cell.logoImage.layer.cornerRadius = cell.logoImage.frame.width/2
-//        cell.imgHeart.image = imgHeart.image?.withRenderingMode(.alwaysTemplate)
-//        cell.imgHeart.tintColor = UIColor.red
         let exactDate = NSDate(timeIntervalSince1970: TimeInterval(truncating: (data.post?.timeStamp)!))
         let dateFormatt = DateFormatter()
         dateFormatt.dateFormat = "hh:mm a"
         cell.timeLabel.text = dateFormatt.string(from: exactDate as Date)
+        cell.lblCountLikes.text = postlist[indexPath.row].post?.countLikes
         cell.delegate = self
         cell.delegateST = self
+        cell.delegateLike = self
         cell.indexPath = indexPath
+        cell.postID = postlist[indexPath.row].post?.idM
         return cell
     }
     
@@ -190,7 +207,19 @@ extension NewFeedVC: SettingDelegate{
 //        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
 //        let settingVC = storyBoard.instantiateViewController(withIdentifier: "settingVC")
 //        self.navigationController?.pushViewController(settingVC, animated: true)
-        
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sbPopUpID") as! PopoverViewController
+        self.addChild(popOverVC)
+        popOverVC.view.frame = self.view.frame
+        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParent: self)
         
     }
+}
+
+extension NewFeedVC: LikeDelegate{
+    
+     func clickLike(indexPath: IndexPath) {
+
+        }
+    
 }

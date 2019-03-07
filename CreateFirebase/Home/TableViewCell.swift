@@ -10,6 +10,7 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblUsername: UILabel!
     @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var lblCmt: UILabel!
     @IBOutlet weak var avtUser: UIImageView!

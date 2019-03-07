@@ -15,12 +15,22 @@ class Post {
     var postTextM:String?
     var imgPostM:String?
     var timeStamp:NSNumber?
+    var countLikes:String?
     init(id:String, imgPost:String, uid:String, post:String, timeStamp:NSNumber?) {
         self.idM = id
         self.postTextM = post
         self.imgPostM = imgPost
         self.timeStamp = timeStamp
         self.uid = uid
+    }
+    
+    init(id:String, imgPost:String, uid:String, post:String, timeStamp:NSNumber?,countLikes:String?) {
+        self.idM = id
+        self.postTextM = post
+        self.imgPostM = imgPost
+        self.timeStamp = timeStamp
+        self.uid = uid
+        self.countLikes = countLikes
     }
 }
 

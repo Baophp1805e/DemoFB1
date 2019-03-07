@@ -39,7 +39,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         Database.database().reference().child("Comment").child((post?.idM)!).observe(.value) { (dataSnapshot) in
             if dataSnapshot.childrenCount > 0{
 //                print(dataSnapshot)
-                                            self.CMT.removeAll()
+                self.CMT.removeAll()
                 for child in dataSnapshot.children{
                     let infor = Infor()
 //                    let snap = child as! DataSnapshot
@@ -51,22 +51,24 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let time = dict["timeStamp"] as! NSNumber
                     let cmt = CommentModel(uid: uid, cmt: textComment, timeStamp: time)
                     infor.cmtInfor = cmt
+                    print(uid)
                     Database.database().reference().child("Users").child(uid).observe(.value, with: { (data) in
-                        if data.childrenCount > 0{
-
-                            let dict = data.value as! [String: Any]
-                            let profilePicLink = dict["profilePicLink"] as! String
-//                            let username = dict["username"] as! String
-                            let user = UserProfile(logoUser: profilePicLink )
+                        print(data)
+                        let dict = data.value as! [String: Any]
+                        let profilePicLink = dict["profilePicLink"] as! String
+                        let username = dict["username"] as! String
+//                            for child in data.children{
+//                            let Snap1 = child as! DataSnapshot
+//                            let dict = Snap1.value as! [String: Any]
+//                            let profilePicLink = dict["profilePicLink"] as! String
+////                            let username = dict["username"] as! String
+                            let user = UserProfile(logoUser: profilePicLink, user: username )
                             infor.user = user
                             self.CMT.append(infor)
                             self.tableView.reloadData()
-                        }
             })
-                    self.tableView.reloadData()
                 }
                 }
-        
         }
     }
     
@@ -84,8 +86,8 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let values : [String: Any] = ["id":Auth.auth().currentUser?.uid as Any,"textComment":textComment.text!,"timeStamp":timeStamp]
         refCmt.childByAutoId().setValue(values)
-//        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).child("Cmt").updateChildValues(value)
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CMT.count
     }
@@ -96,7 +98,10 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         let data = CMT[indexPath.row]
         cell.lblCmt.text = data.cmtInfor!.cmtM
+        cell.lblUsername.text = data.user!.userM
         cell.avtUser.kf.setImage(with: URL(string: (data.user?.logoUserM)!))
+        cell.avtUser.layer.masksToBounds = true
+        cell.avtUser.layer.cornerRadius = cell.avtUser.frame.height/2
         let exactDate = NSDate(timeIntervalSince1970: TimeInterval(truncating: (data.cmtInfor?.timeStamp)!))
         let dateFormatt = DateFormatter()
         dateFormatt.dateFormat = "hh:mm a"

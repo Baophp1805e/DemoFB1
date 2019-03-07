@@ -11,7 +11,9 @@ import Firebase
 
 class HomeVC: UIViewController {
 
+    @IBOutlet weak var btnLogout: UIButton!
     
+    @IBOutlet weak var btnUpdate: UIButton!
     @IBOutlet weak var lblDisplayEmail: UILabel!
     
     
@@ -19,6 +21,12 @@ class HomeVC: UIViewController {
         print("btn")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "NewFeedVC") as? NewFeedVC
         self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    func custom(){
+        lblDisplayEmail.layer.masksToBounds = true
+        lblDisplayEmail.layer.cornerRadius = 20
+        btnLogout.makeRoundedBorder(radius: 20)
+        btnUpdate.makeRoundedBorder(radius: 20)
     }
     
     override func viewDidLoad() {
@@ -31,6 +39,7 @@ class HomeVC: UIViewController {
             return
         }
         lblDisplayEmail.text = "Hello : \(email)"
+        custom()
     }
     
 

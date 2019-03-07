@@ -10,4 +10,5 @@ target 'CreateFirebase' do
   pod 'JSQMessagesViewController'
   pod 'Kingfisher'
   pod 'NVActivityIndicatorView'
+  pod 'Popover'
 end
