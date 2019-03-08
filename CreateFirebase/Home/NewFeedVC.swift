@@ -30,7 +30,6 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.rowHeight = 214
         let nibName = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "cell")
-//        observePosts()
         obj()
     }
  
@@ -46,11 +45,11 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     let id = dict["id"] as! String
                     let status = dict["status"] as! String
                     let imgPost = dict["imgPost"] as! String
-                    let timestamp = dict["timeStamp"] as! NSNumber
+                    let timestamp = dict["timeStamp"] as! Int
                     let uid = dict["uid"] as! String
                     let countLikes = dict["countLikes"] as! String
                     print(countLikes)
-                    let post = Post(id: id, imgPost: imgPost, uid: uid, post: status, timeStamp: timestamp,countLikes:countLikes)
+                    let post = Post(id: id, imgPost: imgPost, uid: uid, post: status, timeStamp: timestamp, countLikes:countLikes)
                     infor.post = post
                     self.ref.child("Users").child(uid).observe(.value, with: { (data) in
                         if data.childrenCount > 0{
@@ -70,15 +69,8 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             }
 
                             self.postlist.append(infor)
-                            DispatchQueue.main.async {
-                                if self.postlist.count >= 2 {
-                                    self.postlist.sort(by: {(b,a) -> Bool in
-                                        return self.getDataFromString(dateSring: (a.post?.timeStamp)!) > self.getDataFromString(dateSring: (b.post?.timeStamp)!)
-                                    })
-                                }
-                                
-                                self.tableView.reloadData()
-                            }
+                            self.postlist.sort{ $0.post!.timeStamp! > $1.post!.timeStamp! }
+                             self.tableView.reloadData()
                         }
                         
                     })
@@ -88,16 +80,7 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    func getDataFromString(dateSring:NSNumber){
-        let exactDate = NSDate(timeIntervalSince1970: TimeInterval(truncating: (dateSring)))
-        let dateFormatt = DateFormatter()
-        dateFormatt.dateFormat = "hh:mm a"
-        //                dateFormatt.dateFormat = "dd/MM/yyy hh:mm:ss a"
-        dateFormatt.string(from: exactDate as Date)
-    }
-    func CountLike(){
-//        Database.database().reference().child("Post")
-    }
+
     //MARK: - Handle
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postlist.count
@@ -111,10 +94,11 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.logoImage.kf.setImage(with: URL(string: (data.user?.logoUserM)!))
         cell.logoImage.layer.masksToBounds = true
         cell.logoImage.layer.cornerRadius = cell.logoImage.frame.width/2
-        let exactDate = NSDate(timeIntervalSince1970: TimeInterval(truncating: (data.post?.timeStamp)!))
-        let dateFormatt = DateFormatter()
-        dateFormatt.dateFormat = "hh:mm a"
-        cell.timeLabel.text = dateFormatt.string(from: exactDate as Date)
+        let messageDate = Date(timeIntervalSince1970: TimeInterval((data.post?.timeStamp)!))
+        let dataformatter = DateFormatter()
+        dataformatter.timeStyle = .short
+        let date = dataformatter.string(from: messageDate)
+        cell.timeLabel.text = date
         cell.lblCountLikes.text = postlist[indexPath.row].post?.countLikes
         cell.delegate = self
         cell.delegateST = self
@@ -204,37 +188,66 @@ extension NewFeedVC: PostDelegate{
 
 extension NewFeedVC: SettingDelegate{
     func didClickSetting(indexPath: IndexPath) {
-//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        let settingVC = storyBoard.instantiateViewController(withIdentifier: "settingVC")
-//        self.navigationController?.pushViewController(settingVC, animated: true)
         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sbPopUpID") as! PopoverViewController
         self.addChild(popOverVC)
+        popOverVC.delegateDelete = self
+        popOverVC.editDelegate = self
+        popOverVC.idPost = self.postlist[indexPath.row].post?.idM
         popOverVC.view.frame = self.view.frame
+        popOverVC.indexpath = indexPath
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParent: self)
         
     }
 }
 
-extension NewFeedVC: LikeDelegate{
-    
-     func clickLike(indexPath: IndexPath) {
+extension NewFeedVC: EditDelegateProtocol{
+    func didClickEdit(idPost: String,indexPath: IndexPath) {
+        print("Edit")
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let commentVc = storyBoard.instantiateViewController(withIdentifier: "Edit") as? EditViewController
+        commentVc?.infor = postlist[indexPath.row]
+        self.navigationController?.pushViewController(commentVc!, animated: true)
+    }
+}
 
+extension NewFeedVC: LikeDelegate{
+
+     func clickLike(indexPath: IndexPath) {
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
-    
+
 }
 
 extension NewFeedVC: DeleteDelegate{
-    func didClickDelete(indexPath: IndexPath) {
-            let demo = postlist[indexPath.row]
-        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child((demo.post?.uid)!).removeValue()
-            ref.child("Post").child((demo.post?.idM)!).removeValue()
-            ref.child("Comment").child((demo.post?.idM)!).removeValue()
-        
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+    func didClickDelete(idPost: String) {
+        print("Delete")
+        ref.child("Post").child(idPost).removeValue { (error, ref) in
+            if error != nil {
+                print("error \(error)")
+            } else {
+                
+            }
+            self.tableView.reloadData()
+        }
+        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child(idPost).removeValue { (error, ref) in
+            if error != nil {
+                print("error \(error)")
+            } else {
+                
+            }
+            self.tableView.reloadData()
+        }
+        ref.child("Comment").child(idPost).removeValue { (error, ref) in
+            if error != nil {
+                print("error \(error)")
+            } else {
+                
+            }
+            self.tableView.reloadData()
+        }
+//        self.tableView.reloadData()
     }
-    
-    
 }
+    
+

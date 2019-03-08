@@ -13,10 +13,10 @@ class Post {
     var idM:String?
     var postTextM:String?
     var imgPostM:String?
-    var timeStamp:NSNumber?
+    var timeStamp:Int?
     var countLikes:String?
     
-    init(id:String, imgPost:String, uid:String, post:String, timeStamp:NSNumber?) {
+    init(id:String, imgPost:String, uid:String, post:String, timeStamp:Int) {
         self.idM = id
         self.postTextM = post
         self.imgPostM = imgPost
@@ -24,7 +24,7 @@ class Post {
         self.uid = uid
     }
     
-    init(id:String, imgPost:String, uid:String, post:String, timeStamp:NSNumber?,countLikes:String?) {
+    init(id:String, imgPost:String, uid:String, post:String, timeStamp:Int,countLikes:String?) {
         self.idM = id
         self.postTextM = post
         self.imgPostM = imgPost

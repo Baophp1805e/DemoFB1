@@ -26,7 +26,7 @@ class YourPostVC: UIViewController, UITextViewDelegate {
     func AddData(imgPostLink url: String){
         let refPost = Database.database().reference().child("Post").childByAutoId()
         let keyPost = refPost.key
-        let timeStamp = NSNumber.init(value: Date().timeIntervalSince1970)
+        let timeStamp = Int(Date().timeIntervalSince1970)
         let AddData = ["id":keyPost!, "uid":Auth.auth().currentUser?.uid as Any, "status":textView.text!, "imgPost": url,"timeStamp":timeStamp,"countLikes":"0"] as [String : Any]
         refPost.setValue(AddData) { (error: Error?, ref: DatabaseReference) in
             if (error == nil) {
@@ -44,7 +44,7 @@ class YourPostVC: UIViewController, UITextViewDelegate {
         
         ref = Database.database().reference()
         textView.delegate = self
-        getDataName()
+//        getDataName()
     }
     
     @IBAction func imgPostTapped(_ sender: Any) {
@@ -66,30 +66,28 @@ class YourPostVC: UIViewController, UITextViewDelegate {
             }
         })
     }
-    func getDataName()
-    {
-        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).observe(.value) { (snapshot) in
-            print(snapshot)
-            let name = (snapshot.value as! NSDictionary)["username"] as! String
-            print(name)
-//            self.lbluser.text = name
-//            let userID = Auth.auth().currentUser?.uid
-//            ref = Database.database().reference()
-//            ref.child("Users").child(userID!).observe(.value) { snapshot in
-//                guard let dict = snapshot.value as? [String: Any] else { return }
-//                let name = dict["username"]
-//                self.lbluser.text = name as? String
-                //
-        }
-    }
+//    func getDataName()
+//    {
+//        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).observe(.value) { (snapshot) in
+//            print(snapshot)
+//            let name = (snapshot.value as! NSDictionary)["username"] as! String
+//            print(name)
+////            self.lbluser.text = name
+////            let userID = Auth.auth().currentUser?.uid
+////            ref = Database.database().reference()
+////            ref.child("Users").child(userID!).observe(.value) { snapshot in
+////                guard let dict = snapshot.value as? [String: Any] else { return }
+////                let name = dict["username"]
+////                self.lbluser.text = name as? String
+//                //
+//        }
+//    }
+    
 }
-//        self.navigationController?.popViewController(animated: true)
+
  
 
 extension YourPostVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

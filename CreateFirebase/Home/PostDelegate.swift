@@ -21,5 +21,9 @@ protocol LikeDelegate: class {
 }
 
 protocol DeleteDelegate {
-    func didClickDelete(indexPath: IndexPath)
+    func didClickDelete(idPost: String)
+}
+
+protocol EditDelegateProtocol {
+    func didClickEdit(idPost: String,indexPath: IndexPath)
 }

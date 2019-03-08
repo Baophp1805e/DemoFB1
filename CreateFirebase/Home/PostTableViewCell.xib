@@ -38,10 +38,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="48y-kZ-emC">
-                        <rect key="frame" x="53" y="122.5" width="380" height="170"/>
+                        <rect key="frame" x="53" y="122.5" width="380" height="190"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="380" id="DBr-yW-OvB"/>
-                            <constraint firstAttribute="height" constant="170" id="b1z-8o-4Ju"/>
+                            <constraint firstAttribute="height" constant="190" id="b1z-8o-4Ju"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a form that allows " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APU-fN-qmq">

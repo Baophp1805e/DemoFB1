@@ -11,10 +11,11 @@ import Firebase
 
 class PopoverViewController: UIViewController {
      // MARK: - Property
-    var indexPath: IndexPath!
+    var idPost: String?
     var ref: DatabaseReference!
     var delegateDelete: DeleteDelegate?
-    
+    var editDelegate: EditDelegateProtocol?
+    var indexpath:IndexPath!
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +29,16 @@ class PopoverViewController: UIViewController {
     
     //MARK: Handle Setting
     @IBAction func btnEdit(_ sender: Any) {
-        
+        editDelegate?.didClickEdit(idPost: idPost!,indexPath: self.indexpath)
+//        self.removeAnimate()
     }
     
     
     @IBAction func btnDelete(_ sender: Any) {
-        delegateDelete?.didClickDelete(indexPath: self.indexPath)
-        self.dismiss(animated: true, completion: nil)
+        print("Delete Tapped")
+        delegateDelete?.didClickDelete(idPost: idPost!)
+        self.removeAnimate()
+//        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func btnCancle(_ sender: Any) {
@@ -66,3 +70,4 @@ class PopoverViewController: UIViewController {
         });
     }
 }
+

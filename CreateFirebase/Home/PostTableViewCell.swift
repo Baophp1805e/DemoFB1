@@ -33,7 +33,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     
-    @IBAction func btnLike(_ sender: Any) {
+    @IBAction func btnLike(_ sender: UIButton) {
         delegateLike?.clickLike(indexPath: self.indexPath)
         Database.database().reference().child("Post").child(postID).child("UserLike").observe(.value) { (snapshot) in
             print(snapshot.childrenCount)
@@ -43,15 +43,15 @@ class PostTableViewCell: UITableViewCell {
         guard let loopButton = sender as? UIButton else {
             return
         }
-
+        
         let selected = !loopButton.isSelected
-
+        
         if selected {
             print("selected")
-           
+            
             let like = Database.database().reference().child("Post").child(postID)
             like.child("UserLike").updateChildValues([(Auth.auth().currentUser?.uid)! : "true"])
-             imgHeart.image = UIImage(named: "btn_heart_red_solid")
+            imgHeart.image = UIImage(named: "btn_heart_red_solid")
             
         } else {
             print("deselected")
@@ -59,7 +59,7 @@ class PostTableViewCell: UITableViewCell {
             like.child("UserLike").child((Auth.auth().currentUser?.uid)!).removeValue()
             imgHeart.image = UIImage(named: "btn_heart_black_outline")
         }
-
+        
         loopButton.isSelected = selected
     }
     

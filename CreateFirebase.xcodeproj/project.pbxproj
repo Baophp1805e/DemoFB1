@@ -11,7 +11,6 @@
 		39242C58221C0E6B00FEC811 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39242C57221C0E6B00FEC811 /* UserProfile.swift */; };
 		392499F8222D21C7003D625C /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392499F7222D21C7003D625C /* Custom.swift */; };
 		397165432229330C000775CB /* Infor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397165422229330C000775CB /* Infor.swift */; };
-		398DCE21222EA8EC00F98D11 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398DCE20222EA8EC00F98D11 /* NotificationVC.swift */; };
 		39953D9E2213B34800E4612F /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39953D9D2213B34800E4612F /* AlertController.swift */; };
 		39953DA1221419D000E4612F /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39953D9F221419D000E4612F /* PostTableViewCell.swift */; };
 		39953DA2221419D000E4612F /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39953DA0221419D000E4612F /* PostTableViewCell.xib */; };
@@ -21,6 +20,7 @@
 		39AC40C2222E5D9D003522BC /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C1222E5D9D003522BC /* CommentViewController.swift */; };
 		39AC40C4222E6AA3003522BC /* PostDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C3222E6AA3003522BC /* PostDelegate.swift */; };
 		39AC40C6222E7042003522BC /* InforComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC40C5222E7042003522BC /* InforComment.swift */; };
+		39AFFBBC2232357C008E726B /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AFFBBB2232357C008E726B /* EditViewController.swift */; };
 		39BF7410222E79AE008F573A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BF740F222E79AE008F573A /* TableViewCell.swift */; };
 		39E174E02230D4680053D53E /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E174DF2230D4680053D53E /* PopoverViewController.swift */; };
 		832029382227C038006F10DC /* UpdateProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832029372227C038006F10DC /* UpdateProViewController.swift */; };
@@ -38,7 +38,6 @@
 		39242C57221C0E6B00FEC811 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		392499F7222D21C7003D625C /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
 		397165422229330C000775CB /* Infor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Infor.swift; sourceTree = "<group>"; };
-		398DCE20222EA8EC00F98D11 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		39953D9D2213B34800E4612F /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		39953D9F221419D000E4612F /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		39953DA0221419D000E4612F /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		39AC40C1222E5D9D003522BC /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		39AC40C3222E6AA3003522BC /* PostDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDelegate.swift; sourceTree = "<group>"; };
 		39AC40C5222E7042003522BC /* InforComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InforComment.swift; sourceTree = "<group>"; };
+		39AFFBBB2232357C008E726B /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		39BF740F222E79AE008F573A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		39E174DF2230D4680053D53E /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		653893817F2C03DF953D0E6C /* Pods-CreateFirebase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreateFirebase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreateFirebase/Pods-CreateFirebase.debug.xcconfig"; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 				39AC40C1222E5D9D003522BC /* CommentViewController.swift */,
 				39BF740F222E79AE008F573A /* TableViewCell.swift */,
 				39AC40C3222E6AA3003522BC /* PostDelegate.swift */,
-				398DCE20222EA8EC00F98D11 /* NotificationVC.swift */,
+				39AFFBBB2232357C008E726B /* EditViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -331,6 +331,7 @@
 				83E36EA5221149AA00EF448C /* SignUpVC.swift in Sources */,
 				397165432229330C000775CB /* Infor.swift in Sources */,
 				39AC40C4222E6AA3003522BC /* PostDelegate.swift in Sources */,
+				39AFFBBC2232357C008E726B /* EditViewController.swift in Sources */,
 				39A3454A221E784B00480EF7 /* Post.swift in Sources */,
 				39BF7410222E79AE008F573A /* TableViewCell.swift in Sources */,
 				399EC6042215655600B063BC /* YourPostVC.swift in Sources */,
@@ -340,7 +341,6 @@
 				392499F8222D21C7003D625C /* Custom.swift in Sources */,
 				839D9EA521F97C6D007AE769 /* AppDelegate.swift in Sources */,
 				83E36EA922114AA500EF448C /* LoginVC.swift in Sources */,
-				398DCE21222EA8EC00F98D11 /* NotificationVC.swift in Sources */,
 				39953DA1221419D000E4612F /* PostTableViewCell.swift in Sources */,
 				39E174E02230D4680053D53E /* PopoverViewController.swift in Sources */,
 				399EC6022215572D00B063BC /* NewFeedVC.swift in Sources */,
