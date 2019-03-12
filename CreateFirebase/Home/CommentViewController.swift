@@ -27,11 +27,14 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+//        settingCmt()
         self.title = "Comment"
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    //MARK: - Handle
     
     func getComment(){
         Database.database().reference().child("Comment").child((post?.idM)!).observe(.value) { (dataSnapshot) in
@@ -99,4 +102,20 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.lblTimer.text = dateFormatt.string(from: exactDate as Date)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            self.CMT.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+//         let cmt = Database.database().reference().child("Comment").child((post?.idM)!)
+//        let keyCmt = cmt.key
+            Database.database().reference().child("Comment").child((post?.idM)!).removeValue()
+        }
+        
+    }
+ 
 }

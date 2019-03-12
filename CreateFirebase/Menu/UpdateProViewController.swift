@@ -12,7 +12,7 @@ import Firebase
 import Kingfisher
 
 class UpdateProViewController: UIViewController, UITextFieldDelegate {
-    
+    // MARK: - Property
     @IBOutlet weak var btnCancle: UIButton!
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var imgProfile: UIImageView!
@@ -45,11 +45,14 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
         txtUsername.layer.cornerRadius = 20
     }
     
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataProfile()
         Custom()
     }
+    
+    // MARK: - Handle
     @IBAction func imgTapped(_ sender: Any) {
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
@@ -72,7 +75,6 @@ class UpdateProViewController: UIViewController, UITextFieldDelegate {
                     }
                      self.dismiss(animated: true, completion: nil)
                 }
-                //        })
             })
         }
        

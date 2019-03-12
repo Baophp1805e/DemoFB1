@@ -12,9 +12,9 @@ import Firebase
 import Kingfisher
 
 class EditViewController: UIViewController {
+    //MARK: Properties
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var timeStamp: UILabel!
-    
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var tfPost: UITextField!
     let imagePickerController = UIImagePickerController()
@@ -35,6 +35,8 @@ class EditViewController: UIViewController {
         tfPost.layer.cornerRadius = 20
         
     }
+    
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         custom()
@@ -53,6 +55,8 @@ class EditViewController: UIViewController {
         tfPost.text = infor?.post?.postTextM
         imgPost.kf.setImage(with: URL(string: (infor?.post?.imgPostM)!))
     }
+    
+    //MARK: Handle
     @IBAction func btnCancel(_ sender: Any) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let newFeedVC = storyBoard.instantiateViewController(withIdentifier: "NewFeedVC") as! NewFeedVC
@@ -67,8 +71,6 @@ class EditViewController: UIViewController {
     }
     
     @IBAction func btnSave(_ sender: Any) {
-//        let refPost = Database.database().reference().child("Post").child((infor?.post?.idM)!)
-//        let keyPost = refPost.key
         let storageRef = Storage.storage().reference().child("imgPostPic").child((Auth.auth().currentUser?.uid)!)
         let metadata = StorageMetadata()
         if imgPost != nil {
@@ -81,12 +83,9 @@ class EditViewController: UIViewController {
                     let newFeedVC = storyBoard.instantiateViewController(withIdentifier: "NewFeedVC") as! NewFeedVC
                     self.navigationController?.pushViewController(newFeedVC, animated: true)
                 }
-                //        })
             })
         }
     }
-    
-
 }
 
 extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -95,7 +94,6 @@ extension EditViewController: UIImagePickerControllerDelegate, UINavigationContr
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.imgPost.image = pickedImage
         }
-        
         picker.dismiss(animated: true, completion: nil)
     }
     

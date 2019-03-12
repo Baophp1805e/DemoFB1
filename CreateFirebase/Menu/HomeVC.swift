@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class HomeVC: UIViewController {
-
+    // MARK: - Property
     @IBOutlet weak var btnLogout: UIButton!
     
     @IBOutlet weak var btnUpdate: UIButton!
@@ -29,6 +29,7 @@ class HomeVC: UIViewController {
         btnUpdate.makeRoundedBorder(radius: 20)
     }
     
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +45,7 @@ class HomeVC: UIViewController {
     
 
 
-    // MARK: - Navigation
+    // MARK: - Handel
     @IBAction func btnLogout(_ sender: Any) {
         do {
             try Auth.auth().signOut()

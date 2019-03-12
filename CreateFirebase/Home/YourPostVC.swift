@@ -12,10 +12,7 @@ import Firebase
 class YourPostVC: UIViewController, UITextViewDelegate {
     //MARK: Properties
     var ref: DatabaseReference!
-    
-    @IBAction func btnCancle(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
+    weak var protocolPost: PostProtocol?
     @IBOutlet weak var imgPost: UIImageView!
     @IBOutlet weak var lbluser: UILabel!
     @IBOutlet weak var textView: UITextView!
@@ -24,15 +21,20 @@ class YourPostVC: UIViewController, UITextViewDelegate {
         UploadImg()
     }
     func AddData(imgPostLink url: String){
+        protocolPost?.didClickPost()
         let refPost = Database.database().reference().child("Post").childByAutoId()
         let keyPost = refPost.key
         let timeStamp = Int(Date().timeIntervalSince1970)
         let AddData = ["id":keyPost!, "uid":Auth.auth().currentUser?.uid as Any, "status":textView.text!, "imgPost": url,"timeStamp":timeStamp,"countLikes":"0"] as [String : Any]
-        refPost.setValue(AddData) { (error: Error?, ref: DatabaseReference) in
+        refPost.setValue(AddData)
+        { (error: Error?, ref: DatabaseReference) in
             if (error == nil) {
-                self.dismiss(animated: true, completion: nil)
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let close = storyBoard.instantiateViewController(withIdentifier: "NewFeedVC")
+                self.navigationController?.pushViewController(close, animated: true)
             } else {
-                // show popup looi~
+//                self.postlist = []
+                
             }
         }
         let value = [keyPost: "post"] as! [String: String]
@@ -45,6 +47,13 @@ class YourPostVC: UIViewController, UITextViewDelegate {
         ref = Database.database().reference()
         textView.delegate = self
 //        getDataName()
+    }
+    
+    // MARK: - Handle
+    @IBAction func btnCancle(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let close = storyBoard.instantiateViewController(withIdentifier: "NewFeedVC")
+        navigationController?.pushViewController(close, animated: true)
     }
     
     @IBAction func imgPostTapped(_ sender: Any) {
@@ -66,23 +75,6 @@ class YourPostVC: UIViewController, UITextViewDelegate {
             }
         })
     }
-//    func getDataName()
-//    {
-//        Database.database().reference().child("Users").child((Auth.auth().currentUser?.uid)!).observe(.value) { (snapshot) in
-//            print(snapshot)
-//            let name = (snapshot.value as! NSDictionary)["username"] as! String
-//            print(name)
-////            self.lbluser.text = name
-////            let userID = Auth.auth().currentUser?.uid
-////            ref = Database.database().reference()
-////            ref.child("Users").child(userID!).observe(.value) { snapshot in
-////                guard let dict = snapshot.value as? [String: Any] else { return }
-////                let name = dict["username"]
-////                self.lbluser.text = name as? String
-//                //
-//        }
-//    }
-    
 }
 
  

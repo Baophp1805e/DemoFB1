@@ -12,19 +12,18 @@ import Firebase
 
 class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-//    var isChecked = true
-    @IBOutlet weak var tableView: UITableView!
-    
     
     // MARK: - Property
     var ref: DatabaseReference!
     var postlist = [Infor]()
+    @IBOutlet weak var tableView: UITableView!
    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "NewFeed"
+        tableView.estimatedRowHeight = 370
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 214
@@ -33,6 +32,8 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         obj()
     }
  
+    
+    //MARK: Handle
     func obj(){
         ref = Database.database().reference()
         ref.child("Post").queryLimited(toLast: 10).observe(.value) { (snapshot) in
@@ -78,9 +79,18 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     
                 }
             }
+            else {
+                self.postlist = []
+            }
         }
     }
 
+    @IBAction func presentPost(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let commentVc = storyBoard.instantiateViewController(withIdentifier: "post") as? YourPostVC
+//        commentVc?.infor = postlist[IndexPath.row]
+        self.navigationController?.pushViewController(commentVc!, animated: true)
+    }
     //MARK: - Handle
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postlist.count
@@ -103,6 +113,7 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         cell.delegateST = self
         cell.delegateLike = self
+//        cell.protocolPost = self
         cell.indexPath = indexPath
         cell.postID = postlist[indexPath.row].post?.idM
         return cell
@@ -116,60 +127,7 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-//    func updateDemo(id: String, userUpdate: String, postUpdate: String)
-//    {
-//        let timeStamp = NSNumber.init(value: Date().timeIntervalSince1970)
-//        let data = ["id" : id, "username" : userUpdate, "status" : postUpdate,"timeStamp":timeStamp] as [String : Any]
-//        ref.child("Post").child(id).setValue(data)
-//
-//    }
-////
-//    func deleteDemo(id: String)
-//    {
-//        ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child(id).removeValue()
-//            ref.child("Post").child(id).removeValue()
-//
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        let demo = postlist[indexPath.row]
-//        let alertController = UIAlertController(title:demo.user!.userM, message: "Give new values to demo", preferredStyle:.alert)
-//
-//        let updateAction = UIAlertAction(title: "Update", style: .default) { (_) in
-//            let id = demo.post!.idM
-//            let userUpdate = alertController.textFields?[0].text
-//            let postUpdate = alertController.textFields?[1].text
-//
-//            self.updateDemo(id: id!, userUpdate: userUpdate!, postUpdate: postUpdate!)
-//        }
-//        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
-//
-//            self.deleteDemo(id: demo.post!.idM!)
-//            self.postlist.remove(at: indexPath.row)
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
-//            print("Cancel button tapped");
-//        }
-//        alertController.addTextField { (textField) in
-//            textField.text = demo.user!.userM
-//        }
-//        alertController.addTextField { (textField) in
-//            textField.text = demo.post!.postTextM
-//        }
-//
-//        alertController.addAction(cancelAction)
-//        alertController.addAction(updateAction)
-//        alertController.addAction(deleteAction)
-//        present(alertController, animated: true, completion: nil)
-//    }
+ 
 }
 
 
@@ -197,7 +155,6 @@ extension NewFeedVC: SettingDelegate{
         popOverVC.indexpath = indexPath
         self.view.addSubview(popOverVC.view)
         popOverVC.didMove(toParent: self)
-        
     }
 }
 
@@ -219,15 +176,30 @@ extension NewFeedVC: LikeDelegate{
 
 }
 
+extension NewFeedVC: PostProtocol {
+    func didClickPost() {
+        self.tableView.reloadData()
+        
+    }
+    
+    
+}
 extension NewFeedVC: DeleteDelegate{
     func didClickDelete(idPost: String) {
-        print("Delete")
+//        let demo = postlist[indexPath.row]
+//        self.postlist.remove(at: indexPath.row)
+//        tableView.deleteRows(at: [indexPath], with: .fade)
+
         ref.child("Post").child(idPost).removeValue { (error, ref) in
+           
             if error != nil {
+                
+                 self.postlist.removeAll()
                 print("error \(error)")
             } else {
-                
+                self.obj()
             }
+            
             self.tableView.reloadData()
         }
         ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child(idPost).removeValue { (error, ref) in
@@ -250,4 +222,3 @@ extension NewFeedVC: DeleteDelegate{
     }
 }
     
-

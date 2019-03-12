@@ -29,10 +29,15 @@ class PostTableViewCell: UITableViewCell {
   
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imgHeart.image = UIImage(named: "btn_heart_red_solid")
     }
     
-    
+    // MARK: - Handle
+    func checkLike() {
+        self.isHidden = true
+        imgHeart.image = UIImage(named: "btn_heart_red_solid")
+    }
+        
     @IBAction func btnLike(_ sender: UIButton) {
         delegateLike?.clickLike(indexPath: self.indexPath)
         Database.database().reference().child("Post").child(postID).child("UserLike").observe(.value) { (snapshot) in
@@ -50,7 +55,7 @@ class PostTableViewCell: UITableViewCell {
             print("selected")
             
             let like = Database.database().reference().child("Post").child(postID)
-            like.child("UserLike").updateChildValues([(Auth.auth().currentUser?.uid)! : "true"])
+            like.child("UserLike").updateChildValues([(Auth.auth().currentUser?.uid)! : true])
             imgHeart.image = UIImage(named: "btn_heart_red_solid")
             
         } else {
@@ -73,6 +78,7 @@ class PostTableViewCell: UITableViewCell {
         delegate?.didClickComment(indexPath: self.indexPath)
         
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

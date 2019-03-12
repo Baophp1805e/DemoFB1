@@ -27,3 +27,7 @@ protocol DeleteDelegate {
 protocol EditDelegateProtocol {
     func didClickEdit(idPost: String,indexPath: IndexPath)
 }
+
+protocol PostProtocol: class {
+    func didClickPost() 
+}
