@@ -45,7 +45,7 @@ class PostTableViewCell: UITableViewCell {
             let like = Database.database().reference().child("Post").child(self.postID)
             like.updateChildValues(["countLikes":"\(snapshot.childrenCount)"])
         }
-        guard let loopButton = sender as? UIButton else {
+    guard let loopButton = sender as? UIButton else {
             return
         }
         
@@ -74,20 +74,16 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func btnComment(_ sender: Any) {
-        
         delegate?.didClickComment(indexPath: self.indexPath)
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    
     func  set(infor:Infor) {
         postLabel.text = infor.post!.postTextM
         userLabel.text = infor.user!.userM
-        
     }
     
 }

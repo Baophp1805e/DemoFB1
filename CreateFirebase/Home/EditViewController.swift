@@ -23,7 +23,6 @@ class EditViewController: UIViewController {
     var ref: DatabaseReference!
     var infor : Infor?{
         didSet {
-//            getComment()
         }
     }
     

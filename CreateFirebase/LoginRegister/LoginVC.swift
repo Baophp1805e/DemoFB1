@@ -18,7 +18,6 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     
     func customButton(){
-        
         btnLogin.makeRoundedBorder(radius: 20)
         btnRegister.makeRoundedBorder(radius: 20)
     }
@@ -28,8 +27,6 @@ class LoginVC: UIViewController {
         txtEmail.layer.cornerRadius = 20
         txtPassword.layer.masksToBounds = true
         txtPassword.layer.cornerRadius = 20
-//        txtEmail.customBorder(radius: 20)
-//        txtPassword.customBorder(radius: 20)
     }
     
     override func viewDidLoad() {

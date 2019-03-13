@@ -16,7 +16,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     var CMT = [Infor]()
     var ref: DatabaseReference!
-    var post : Post?{
+    var cmtList : Post?{
         didSet {
             getComment()
         }
@@ -37,7 +37,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - Handle
     
     func getComment(){
-        Database.database().reference().child("Comment").child((post?.idM)!).observe(.value) { (dataSnapshot) in
+        Database.database().reference().child("Comment").child((cmtList?.idM)!).observe(.value) { (dataSnapshot) in
             if dataSnapshot.childrenCount > 0{
 //                print(dataSnapshot)
                 self.CMT.removeAll()
@@ -50,9 +50,9 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let time = dict["timeStamp"] as! NSNumber
                     let cmt = CommentModel(uid: uid, cmt: textComment, timeStamp: time)
                     infor.cmtInfor = cmt
-                    print(uid)
+//                    print(uid)
                     Database.database().reference().child("Users").child(uid).observe(.value, with: { (data) in
-                        print(data)
+//                        print(data)
                         let dict = data.value as! [String: Any]
                         let profilePicLink = dict["profilePicLink"] as! String
                         let username = dict["username"] as! String
@@ -74,12 +74,15 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func AddData(){
-        let refCmt = Database.database().reference().child("Comment").child((post?.idM)!)
+        let refCmt = Database.database().reference().child("Comment").child((cmtList?.idM)!).childByAutoId()
+        let keyCmt = refCmt.key
+//        print(keyCmt)
+        
         
         let timeStamp = NSNumber.init(value: Date().timeIntervalSince1970)
         
         let values : [String: Any] = ["id":Auth.auth().currentUser?.uid as Any,"textComment":textComment.text!,"timeStamp":timeStamp]
-        refCmt.childByAutoId().setValue(values)
+        refCmt.setValue(values)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,14 +111,52 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        let cmt = Database.database().reference().child("Comment").child((cmtList?.idM)!)
+////        print(cmt)
+//        let keyCMT = cmt.key
+//        print(keyCMT)
         if (editingStyle == .delete) {
-            self.CMT.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-//         let cmt = Database.database().reference().child("Comment").child((post?.idM)!)
-//        let keyCmt = cmt.key
-            Database.database().reference().child("Comment").child((post?.idM)!).removeValue()
+//            self.CMT.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+    Database.database().reference().child("Comment").child((cmtList?.idM)!).removeValue()
         }
         
     }
- 
+//    func settingCmt() {
+//        let editAction =  UIContextualAction(style: .normal, title: "", handler: { (action,view,completionHandler ) in
+//            //do stuff
+//            self.updateAction(item: item, indexPath: IndexPath)
+//            completionHandler(true)
+//        })
+//        let groupAction =  UIContextualAction(style: .normal, title: "", handler: { (action,view,completionHandler ) in
+//            //do stuff
+//            self.groupAction(item: item, indexPath: indexPath)
+//            completionHandler(true)
+//        })
+//        3/5 14:13
+//        let deleteAction =  UIContextualAction(style: .normal, title: "", handler: { (action,view,completionHandler ) in
+//            self.deleteAction(item: item, indexPath: indexPath)
+//            completionHandler(true)
+//        })
+//
+//        let editAction =  UIContextualAction(style: .normal, title: "", handler: { (action,view,completionHandler ) in
+//            //do stuff
+//            self.updateAction(item: item, indexPath: indexPath)
+//            completionHandler(true)
+//        })
+//        let groupAction =  UIContextualAction(style: .normal, title: "", handler: { (action,view,completionHandler ) in
+//            //do stuff
+//            self.groupAction(item: item, indexPath: indexPath)
+//            completionHandler(true)
+//        })
+//        14:14
+//        //xếp theo thứ tự ngược
+//        let confrigation = UISwipeActionsConfiguration(actions: [deleteAction,editAction,groupAction])
+//
+//        return confrigation
+//        14:14
+//        private func groupAction(item: Cards,indexPath: IndexPath){
+//
+//        }
+//    }
 }

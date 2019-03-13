@@ -16,36 +16,26 @@ class PopoverViewController: UIViewController {
     var delegateDelete: DeleteDelegate?
     var editDelegate: EditDelegateProtocol?
     var indexpath:IndexPath!
+    
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        
         self.showAnimate()
-        
-        // Do any additional setup after loading the view.
     }
     
     //MARK: Handle Setting
     @IBAction func btnEdit(_ sender: Any) {
         editDelegate?.didClickEdit(idPost: idPost!,indexPath: self.indexpath)
-//        self.removeAnimate()
     }
-    
-    
     @IBAction func btnDelete(_ sender: Any) {
         print("Delete Tapped")
         delegateDelete?.didClickDelete(idPost: idPost!)
         self.removeAnimate()
-//        self.dismiss(animated: true, completion: nil)
     }
-    
     @IBAction func btnCancle(_ sender: Any) {
          self.removeAnimate()
     }
-   
-
     
     func showAnimate()
     {

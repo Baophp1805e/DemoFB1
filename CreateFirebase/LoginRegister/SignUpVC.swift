@@ -26,15 +26,9 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     var imagePicker:UIImagePickerController!
     
     func CustomAvt(){
-//        profilePic.layer.cornerRadius = profilePic.layer.frame.size.height / 2
-//        profilePic.clipsToBounds = true
-        profilePic.layer.borderWidth = 1
-        profilePic.layer.masksToBounds = false
-        profilePic.layer.borderColor = UIColor.black.cgColor
         profilePic.layer.cornerRadius = profilePic.frame.height/2
         profilePic.clipsToBounds = true
     }
-    
     
     func customTextField(){
         txtEmail.customBorder(radius: 20)
@@ -57,7 +51,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func btnSignUp(_ sender: Any) {
-        
         guard
         let username = txtUsername.text,
             username != "",
@@ -92,14 +85,12 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         self.UploadImg()
     }
     
-    
-    
     @IBAction func avatarPicTapped(_ sender: Any) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
         present(imagePickerController, animated: true, completion: nil)    }
-    @objc func openImagePicker(_ sender:Any) {
+        @objc func openImagePicker(_ sender:Any) {
         // Open Image Picker
         self.present(imagePicker, animated: true, completion: nil)
     }
@@ -121,7 +112,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
                 storageRef.downloadURL { url, error in
                     self.AddUser(profilePicLink: (url?.absoluteString)!)
                 }
-            
             }
             
         })
@@ -133,15 +123,12 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     
 }
-
-
 extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.profilePic.image = pickedImage
         }
-        
         picker.dismiss(animated: true, completion: nil)
     }
     

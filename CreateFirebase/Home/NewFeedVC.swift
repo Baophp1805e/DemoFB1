@@ -119,24 +119,21 @@ class NewFeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
+        return 430
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
- 
 }
-
 
 extension NewFeedVC: PostDelegate{
     func didClickComment(indexPath: IndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let commentVc = storyBoard.instantiateViewController(withIdentifier: "commentVC") as? CommentViewController
 //        print(postlist[indexPath.row].post?.idM)
-        commentVc?.post = postlist[indexPath.row].post
+        commentVc?.cmtList = postlist[indexPath.row].post
         
         self.navigationController?.pushViewController(commentVc!, animated: true)
     }
@@ -186,16 +183,10 @@ extension NewFeedVC: PostProtocol {
 }
 extension NewFeedVC: DeleteDelegate{
     func didClickDelete(idPost: String) {
-//        let demo = postlist[indexPath.row]
-//        self.postlist.remove(at: indexPath.row)
-//        tableView.deleteRows(at: [indexPath], with: .fade)
-
         ref.child("Post").child(idPost).removeValue { (error, ref) in
-           
             if error != nil {
-                
                  self.postlist.removeAll()
-                print("error \(error)")
+                print("error \(error!)")
             } else {
                 self.obj()
             }
@@ -204,21 +195,19 @@ extension NewFeedVC: DeleteDelegate{
         }
         ref.child("Users").child((Auth.auth().currentUser?.uid)!).child("Post").child(idPost).removeValue { (error, ref) in
             if error != nil {
-                print("error \(error)")
+                print("error \(error!)")
             } else {
-                
+                self.obj()
             }
             self.tableView.reloadData()
         }
         ref.child("Comment").child(idPost).removeValue { (error, ref) in
             if error != nil {
-                print("error \(error)")
+                print("error \(error!)")
             } else {
-                
+                self.obj()
             }
             self.tableView.reloadData()
         }
-//        self.tableView.reloadData()
     }
 }
-    
